@@ -32,18 +32,16 @@ public class Library
 
     public async void Open(TextBox display)
     {
-        try
+        FileOpenPicker picker = new FileOpenPicker
         {
-            FileOpenPicker picker = new FileOpenPicker();
-            picker.SuggestedStartLocation = PickerLocationId.DocumentsLibrary;
-            picker.FileTypeFilter.Add(".txt");
-            StorageFile file = await picker.PickSingleFileAsync();
+            SuggestedStartLocation = PickerLocationId.DocumentsLibrary
+        };
+        picker.FileTypeFilter.Add(".txt");
+        StorageFile file = await picker.PickSingleFileAsync();
+        if (file != null)
+        {
             display.Text = await FileIO.ReadTextAsync(file);
             display.Select(display.Text.Length, 0);
-        }
-        catch
-        {
-
         }
     }
 
